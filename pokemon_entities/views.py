@@ -90,14 +90,22 @@ def show_pokemon(request, pokemon_id):
     pokemon['title_en'] = searched_pokemon.title_en
     pokemon['title_jp'] = searched_pokemon.title_jp
 
-    if searched_pokemon.from_evolved:
+    if searched_pokemon.previous_evolution:
         previous_evolution = {}
-
-        previous_evolution['title_ru'] = searched_pokemon.from_evolved.title
-        previous_evolution['pokemon_id'] = searched_pokemon.from_evolved.id
-        previous_evolution['img_url'] = searched_pokemon.from_evolved.photo.url
-
+        previous_evolution['title_ru'] = searched_pokemon.previous_evolution.title
+        previous_evolution['pokemon_id'] = searched_pokemon.previous_evolution.id
+        previous_evolution['img_url'] = searched_pokemon.previous_evolution.photo.url
         pokemon['previous_evolution'] = previous_evolution
+
+    next_evolutions = searched_pokemon.pokemons.all()
+
+    if next_evolutions:
+        next_evolution = {}
+        next_evolution['title_ru'] = next_evolutions[0].title
+        next_evolution['pokemon_id'] = next_evolutions[0].id
+        next_evolution['img_url'] = next_evolutions[0].photo.url
+        pokemon['next_evolution'] = next_evolution
+
 
     return render(request, 'pokemon.html', context={
         'map': folium_map._repr_html_(), 'pokemon': pokemon
