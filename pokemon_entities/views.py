@@ -90,6 +90,15 @@ def show_pokemon(request, pokemon_id):
     pokemon['title_en'] = searched_pokemon.title_en
     pokemon['title_jp'] = searched_pokemon.title_jp
 
+    if searched_pokemon.from_evolved:
+        previous_evolution = {}
+
+        previous_evolution['title_ru'] = searched_pokemon.from_evolved.title
+        previous_evolution['pokemon_id'] = searched_pokemon.from_evolved.id
+        previous_evolution['img_url'] = searched_pokemon.from_evolved.photo.url
+
+        pokemon['previous_evolution'] = previous_evolution
+
     return render(request, 'pokemon.html', context={
         'map': folium_map._repr_html_(), 'pokemon': pokemon
     })
