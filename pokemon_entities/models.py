@@ -2,11 +2,12 @@ from django.db import models  # noqa F401
 
 # your models here
 class Pokemon(models.Model):
-    from_evolved = models.ForeignKey(
+    previous_evolution = models.ForeignKey(
         'self',
         on_delete=models.CASCADE,
         null=True,
-        blank=True)
+        blank=True,
+        related_name='pokemons')
     title = models.CharField(max_length=200)
     title_en = models.CharField(max_length=200)
     title_jp = models.CharField(max_length=200)
