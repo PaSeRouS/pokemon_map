@@ -86,6 +86,7 @@ def show_pokemon(request, pokemon_id):
     pokemon = {}
     pokemon['title_ru'] = searched_pokemon.title
     pokemon['img_url'] = searched_pokemon.photo.url
+    pokemon['description'] = searched_pokemon.description
 
     return render(request, 'pokemon.html', context={
         'map': folium_map._repr_html_(), 'pokemon': pokemon
