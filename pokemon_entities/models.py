@@ -7,17 +7,29 @@ class Pokemon(models.Model):
         on_delete=models.CASCADE,
         null=True,
         blank=True,
-        related_name='pokemons')
-    title = models.CharField(max_length=200)
-    title_en = models.CharField(max_length=200)
-    title_jp = models.CharField(max_length=200)
+        related_name='pokemons',
+        verbose_name='Предыдущая эволюция')
+    title = models.CharField(
+        max_length=200,
+        verbose_name='Имя на русском'
+    )
+    title_en = models.CharField(
+        max_length=200,
+        verbose_name='Имя на английском'
+    )
+    title_jp = models.CharField(
+        max_length=200,
+        verbose_name='Имя на японском'
+    )
     photo = models.ImageField(
         upload_to='pokemon',
         null=True,
-        blank=True
+        blank=True,
+        verbose_name='Изображение'
     )
     description = models.TextField(
-        blank=True
+        blank=True,
+        verbose_name='Описание'
     )
 
     def __str__(self):
@@ -25,13 +37,17 @@ class Pokemon(models.Model):
 
 
 class PokemonEntity(models.Model):
-    pokemon = models.ForeignKey(Pokemon, on_delete=models.CASCADE)
-    lat = models.FloatField()
-    lon = models.FloatField()
-    appeared_at = models.DateTimeField()
-    disappeared_at = models.DateTimeField()
-    level = models.IntegerField()
-    health = models.IntegerField()
-    strength = models.IntegerField()
-    defence = models.IntegerField()
-    stamina = models.IntegerField()
+    pokemon = models.ForeignKey(
+        Pokemon, 
+        on_delete=models.CASCADE,
+        verbose_name='Покемон'
+    )
+    lat = models.FloatField(verbose_name='Широта')
+    lon = models.FloatField(verbose_name='Долгота')
+    appeared_at = models.DateTimeField(verbose_name='Появился')
+    disappeared_at = models.DateTimeField(verbose_name='Исчез')
+    level = models.IntegerField(verbose_name='Уровень')
+    health = models.IntegerField(verbose_name='Здоровье')
+    strength = models.IntegerField(verbose_name='Сила')
+    defence = models.IntegerField(verbose_name='Защита')
+    stamina = models.IntegerField(verbose_name='Выносливость')
