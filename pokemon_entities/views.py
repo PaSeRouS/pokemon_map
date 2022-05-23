@@ -67,7 +67,10 @@ def show_all_pokemons(request):
 
 
 def show_pokemon(request, pokemon_id):
-    searched_pokemon = Pokemon.objects.get(id=pokemon_id)
+    try:
+        searched_pokemon = Pokemon.objects.get(id=pokemon_id)
+    except DoesNotExist:
+        print('Нет такого покемона в базе данных')
 
     pokemons_coords = PokemonEntity.objects.filter(
         pokemon=searched_pokemon,
