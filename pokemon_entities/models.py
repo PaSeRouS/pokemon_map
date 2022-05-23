@@ -4,7 +4,7 @@ from django.db import models  # noqa F401
 class Pokemon(models.Model):
     previous_evolution = models.ForeignKey(
         'self',
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
         related_name='pokemons',
