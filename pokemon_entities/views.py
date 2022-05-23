@@ -45,10 +45,10 @@ def show_all_pokemons(request):
             pokemon.pokemon.photo.path
         )
 
-    pokemons_in_db = Pokemon.objects.all()
+    pokemons = Pokemon.objects.all()
     
     pokemons_on_page = []
-    for pokemon in pokemons_in_db:
+    for pokemon in pokemons:
         pokemon_photo = None
 
         if pokemon.photo:
