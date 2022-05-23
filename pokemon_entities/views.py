@@ -88,27 +88,30 @@ def show_pokemon(request, pokemon_id):
             searched_pokemon.photo.path
         )
 
-    pokemon = {}
-    pokemon['title_ru'] = searched_pokemon.title
-    pokemon['img_url'] = searched_pokemon.photo.url
-    pokemon['description'] = searched_pokemon.description
-    pokemon['title_en'] = searched_pokemon.title_en
-    pokemon['title_jp'] = searched_pokemon.title_jp
+    pokemon = {
+        'title_ru': searched_pokemon.title,
+        'img_url': searched_pokemon.photo.url,
+        'description': searched_pokemon.description,
+        'title_en': searched_pokemon.title_en,
+        'title_jp': searched_pokemon.title_jp,
+    }
 
     if searched_pokemon.previous_evolution:
-        previous_evolution = {}
-        previous_evolution['title_ru'] = searched_pokemon.previous_evolution.title
-        previous_evolution['pokemon_id'] = searched_pokemon.previous_evolution.id
-        previous_evolution['img_url'] = searched_pokemon.previous_evolution.photo.url
+        previous_evolution = {
+            'title_ru': searched_pokemon.previous_evolution.title,
+            'pokemon_id': searched_pokemon.previous_evolution.id,
+            'img_url': searched_pokemon.previous_evolution.photo.url,
+        }
         pokemon['previous_evolution'] = previous_evolution
 
     next_evolutions = searched_pokemon.pokemons.all()
 
     if next_evolutions:
-        next_evolution = {}
-        next_evolution['title_ru'] = next_evolutions[0].title
-        next_evolution['pokemon_id'] = next_evolutions[0].id
-        next_evolution['img_url'] = next_evolutions[0].photo.url
+        next_evolution = {
+            'title_ru': next_evolutions[0].title,
+            'pokemon_id': next_evolutions[0].id,
+            'img_url': next_evolutions[0].photo.url,
+        }
         pokemon['next_evolution'] = next_evolution
 
 
