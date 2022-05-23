@@ -51,16 +51,13 @@ def show_all_pokemons(request):
     
     pokemons_on_page = []
     for pokemon in pokemons:
-        pokemon_photo = None
 
-        if pokemon.photo:
-            pokemon_photo = pokemon.photo.url
-
-        pokemons_on_page.append({
-            'pokemon_id': pokemon.id,
-            'img_url': pokemon_photo,
-            'title_ru': pokemon.title,
-        })
+        if pokemon.photo.url:
+            pokemons_on_page.append({
+                'pokemon_id': pokemon.id,
+                'img_url': pokemon.photo.url,
+                'title_ru': pokemon.title,
+            })
 
     return render(request, 'mainpage.html', context={
         'map': folium_map._repr_html_(),
