@@ -1,7 +1,9 @@
 import folium
 import json
 
-from django.http import HttpResponseNotFound
+# from django.core.exceptions import ObjectDoesNotExist
+from django.http import HttpResponseNotFound, Http404
+from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 from django.utils.timezone import localtime
 
@@ -68,9 +70,9 @@ def show_all_pokemons(request):
 
 def show_pokemon(request, pokemon_id):
     try:
-        searched_pokemon = Pokemon.objects.get(id=pokemon_id)
-    except DoesNotExist:
-        print('Нет такого покемона в базе данных')
+        searched_pokemon = Pokemon.objects.get(id=4)
+    except Pokemon.DoesNotExist:
+        raise Http404('Нет такого покемона в базе данных')
 
     pokemons_coords = PokemonEntity.objects.filter(
         pokemon=searched_pokemon,
