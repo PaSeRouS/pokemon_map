@@ -70,18 +70,18 @@ def show_all_pokemons(request):
 
 def show_pokemon(request, pokemon_id):
     try:
-        searched_pokemon = Pokemon.objects.get(id=4)
+        searched_pokemon = Pokemon.objects.get(id=pokemon_id)
     except Pokemon.DoesNotExist:
         raise Http404('Нет такого покемона в базе данных')
 
-    pokemons_coords = PokemonEntity.objects.filter(
+    pokemon_entities = PokemonEntity.objects.filter(
         pokemon=searched_pokemon,
         appeared_at__lt=localtime(),
         disappeared_at__gt=localtime()
     )
 
     folium_map = folium.Map(location=MOSCOW_CENTER, zoom_start=12)
-    for pokemon_entity in pokemons_coords:
+    for pokemon_entity in pokemon_entities:
         add_pokemon(
             folium_map, pokemon_entity.lat,
             pokemon_entity.lon,
